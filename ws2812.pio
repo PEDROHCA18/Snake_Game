@@ -1,0 +1,11 @@
+.program ws2812
+.side_set 1
+
+.wrap_target
+bitloop:
+    out x, 1        side 0 [2]  ; Envia bit para X, mantém o pino em LOW
+    jmp !x, zero    side 1 [4]  ; Se X for 0, pula para 'zero', caso contrário mantém HIGH
+    jmp bitloop     side 1 [2]  ; Mantém HIGH por mais tempo antes de passar para o próximo bit
+zero:
+    nop             side 0 [4]  ; Retorna para LOW por um tempo antes de continuar
+.wrap
